@@ -3,6 +3,7 @@ import os
 
 import requests
 import streamlit as st
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/")
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434").rstrip("/")
 OLLAMA_URL = f"{OLLAMA_BASE_URL}/api/chat"
