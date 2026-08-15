@@ -102,12 +102,14 @@ with st.sidebar:
 def check_ollama_running():
     try:
         headers = {"ngrok-skip-browser-warning": "true"}
-        response = requests.get(f"{OLLAMA_BASE_URL}/api/tags", timeout=5, headers=headers)
-        return response.status_code == 200
-    except requests.exceptions.RequestException:
-        return False
-
-# -----------------------------
+        # Try chat endpoint with default model instead of /api/tags (which has caching issues)
+        payload = {
+            "model": DEFAULT_MODEL,
+            "messages": [{"role": "user", "content": "Hi"}],
+            "stream": False
+        }
+        response = requests.post(f"{OLLAMA_BASE_URL}/api/chat", json=payload, timeout=5, headers=headers)
+        # If model responds or returns 200, Ollama is working
 # Session State / Memory
 # -----------------------------
 if "messages" not in st.session_state:

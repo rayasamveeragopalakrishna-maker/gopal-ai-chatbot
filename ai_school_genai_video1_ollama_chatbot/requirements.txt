@@ -1,0 +1,2 @@
+OLLAMA_BASE_URL = "https://your-real-ollama-server:11434"
+OLLAMA_MODEL = "llama3.2"
